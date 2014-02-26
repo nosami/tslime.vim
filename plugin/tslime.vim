@@ -12,12 +12,12 @@ let g:tslime_loaded = 1
 " Use it in your script if you want to send text to a tmux session.
 function! Send_to_Tmux(text)
   if !exists("b:tmux_sessionname") || !exists("b:tmux_windowname") || !exists("b:tmux_panenumber")
-    if exists("g:tmux_sessionname") && exists("g:tmux_windowname") && exist("g:tmux_panenumber")
+    if exists("g:tmux_sessionname") && exists("g:tmux_windowname") && exists("g:tmux_panenumber")
       let b:tmux_sessionname = g:tmux_sessionname
       let b:tmux_windowname = g:tmux_windowname
       let b:tmux_panenumber = g:tmux_panenumber
     else
-      call <SID>Tmux_Vars()
+      call Tmux_Vars()
     end
   end
 
@@ -43,7 +43,7 @@ function! Tmux_Pane_Numbers(A,L,P)
 endfunction
 
 " set tslime.vim variables
-function! s:Tmux_Vars()
+function! Tmux_Vars()
   let b:tmux_sessionname = input("session name: ", "", "custom,Tmux_Session_Names")
   let b:tmux_windowname = substitute(input("window name: ", "", "custom,Tmux_Window_Names"), ":.*$" , '', 'g')
   let b:tmux_panenumber = input("pane number: ", "", "custom,Tmux_Pane_Numbers")
@@ -60,4 +60,4 @@ endfunction
 vmap <C-c><C-c> "ry :call Send_to_Tmux(@r)<CR>
 nmap <C-c><C-c> vip<C-c><C-c>
 
-nmap <C-c>v :call <SID>Tmux_Vars()<CR>
+nmap <C-c>v :call Tmux_Vars()<CR>
